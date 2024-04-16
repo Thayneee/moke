@@ -35,18 +35,31 @@ avg_mag = np.mean(array_mag, axis=0)
 
 array_volt = np.array(voltageValuesSplit)
 avg_volt = np.mean(array_volt, axis=0)
+
+#choose 2nd cycle to plot so can be compared to averaged data
+raw_mag = magneticFieldValuesSplit[1]
+raw_volt = voltageValuesSplit[1]
     
 #write average data to file "avgdata.txt", file needs to exist first
-with open('avgdata.txt', 'w') as f:
+with open('avgdata.txt', 'w+') as f:
     writer = csv.writer(f, delimiter='\t')
     writer.writerows(zip(avg_mag, avg_volt))
 
 #plot averaged data
+plt.figure(1)
 plt.plot(avg_mag, avg_volt)
 plt.xlabel('Magnetic Field')
 plt.ylabel('Voltage')
 plt.title('Average Magnetic Field vs Voltage')
 plt.grid(True)
+
+#plot one cycle of raw data
+plt.figure(2)
+plt.plot(raw_mag, raw_volt)
+plt.xlabel('Magnetic Field')
+plt.ylabel('Voltage')
+plt.title('One Cycle of Raw Magnetic Field vs Voltage')
+plt.grid(True)
+
+#show the plots
 plt.show()
-
-
